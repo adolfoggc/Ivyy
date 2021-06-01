@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_task.description %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @user_task.active %>
+</p>
+
+<p>
+  <strong>First due:</strong>
+  <%= @user_task.first_due %>
+</p>
+
+<p>
+  <strong>Repetition:</strong>
+  <%= @user_task.repetition %>
+</p>
+
+<%= link_to 'Edit', edit_user_task_path(@user_task) %> |
+<%= link_to 'Back', user_tasks_path %>
