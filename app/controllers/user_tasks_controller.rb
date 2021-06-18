@@ -1,4 +1,5 @@
 class UserTasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user_task, only: %i[ show edit update destroy ]
 
   # GET /user_tasks or /user_tasks.json
