@@ -1,4 +1,5 @@
 class ToDosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_to_do, only: %i[ show edit update destroy ]
 
   # GET /to_dos or /to_dos.json
@@ -22,10 +23,11 @@ class ToDosController < ApplicationController
   # POST /to_dos or /to_dos.json
   def create
     @to_do = ToDo.new(to_do_params)
+    @to_do.user_id = current_user.id
 
     respond_to do |format|
       if @to_do.save
-        format.html { redirect_to @to_do, notice: "To do was successfully created." }
+        format.html { redirect_to to_dos_path , notice: "To do was successfully created." }
         format.json { render :show, status: :created, location: @to_do }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,6 +66,6 @@ class ToDosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def to_do_params
-      params.require(:to_do).permit(:due_date, :completed_at, :finished, :user_task_id)
+      params.require(:to_do).permit(:description, :due_date, :completed_at, :finished, :user_task_id)
     end
 end
