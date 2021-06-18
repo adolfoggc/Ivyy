@@ -1,33 +1,66 @@
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
+
 <p id="notice"><%= notice %></p>
 
-<h1>To Dos</h1>
+<h1>Tarefas</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Due date</th>
-      <th>Completed at</th>
-      <th>Finished</th>
-      <th>User task</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<% if @to_dos.blank? %>
+  <p>Nenhuma tarefa para realizar!</p>
+<% else %>
+  <div class="row">
+    
     <% @to_dos.each do |to_do| %>
-      <tr>
-        <td><%= to_do.due_date %></td>
-        <td><%= to_do.completed_at %></td>
-        <td><%= to_do.finished %></td>
-        <td><%= to_do.user_task_id %></td>
-        <td><%= link_to 'Show', to_do %></td>
-        <td><%= link_to 'Edit', edit_to_do_path(to_do) %></td>
-        <td><%= link_to 'Destroy', to_do, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card border-dark mb-3 col-md-3 col-12 p-0">
+        <div class="card-header"><%= to_do.description %></div>
+        <div class="card-body text-dark p-0">
+          <% 
+            style = "text-white rounded p-1 "
+            if to_do.completed_at.nil?
+                if to_do.due_date == Date.today
+                style += "bg-warning"
+              elsif  to_do.due_date < Date.today
+                style += "bg-danger"
+              else
+                style += "bg-primary"
+              end
+            else
+              if to_do.due_date >= to_do.completed_at
+                style += "bg-success"
+              else
+                style += "bg-danger"
+              end
+            end
+          %>
+          <% if to_do.completed_at.nil? %>
+            <p class="card-text">Completar até:
+              <span class="<%= style %>"><%= to_do.due_date.strftime('%d/%m/%y') %></span>
+            </p>
+          <% else %>
+          <% end %>
+          <% if to_do.finished? %>
+            <p><i class="fas fa-check-circle text-success"></i></p>
+          <% end %>
+          <div class="row align-items-end">
+            <%= link_to edit_to_do_path(to_do), class: "col" do %>
+              <span>
+                Editar <span class="far fa-edit"></span>
+              </span>
+            <% end %>
+            <%= link_to edit_to_do_path(to_do), class: "col" do %>
+              <span>
+                Concluir <span class="fas fa-check-circle text-success"></span>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% end %>
 
-<br>
 
-<%= link_to 'New To Do', new_to_do_path %>
+<%= link_to 'Nova Tarefa', new_to_do_path %>

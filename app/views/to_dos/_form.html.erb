@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :due_date %>
-    <%= form.date_select :due_date %>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
   </div>
 
   <div class="field">
-    <%= form.label :completed_at %>
-    <%= form.date_select :completed_at %>
+    <%= form.label :due_date %>
+    <%= form.date_select :due_date %>
   </div>
 
   <div class="field">
@@ -26,12 +26,7 @@
     <%= form.check_box :finished %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_task_id %>
-    <%= form.text_field :user_task_id %>
-  </div>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Salvar Tarefa" %>
   </div>
 <% end %>

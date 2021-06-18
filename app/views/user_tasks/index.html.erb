@@ -2,32 +2,45 @@
 
 <h1>User Tasks</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th>Active</th>
-      <th>First due</th>
-      <th>Repetition</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% if @to_dos.blank? %>
+  <p>Nenhuma tarefa para realizar!</p>
+<% else %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
 
-  <tbody>
-    <% @user_tasks.each do |user_task| %>
+  <table class="table table-striped table-hover">
+    <thead>
       <tr>
-        <td><%= user_task.description %></td>
-        <td><%= user_task.active %></td>
-        <td><%= user_task.first_due %></td>
-        <td><%= user_task.repetition %></td>
-        <td><%= link_to 'Show', user_task %></td>
-        <td><%= link_to 'Edit', edit_user_task_path(user_task) %></td>
-        <td><%= link_to 'Destroy', user_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Description</th>
+        <th>Active</th>
+        <th>First due</th>
+        <th>Repetition</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @user_tasks.each do |user_task| %>
+        <tr>
+          <td><%= user_task.description %></td>
+          <td><%= user_task.active %></td>
+          <td><%= user_task.first_due %></td>
+          <td><%= user_task.repetition %></td>
+          <td><%= link_to 'Show', user_task %></td>
+          <td><%= link_to 'Edit', edit_user_task_path(user_task) %></td>
+          <td><%= link_to 'Destroy', user_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 <br>
 
 <%= link_to 'New User Task', new_user_task_path %>
